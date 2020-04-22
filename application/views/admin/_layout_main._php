@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin dashboard</title>
+        <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<?=base_url()?>assets/fonts/ionicons.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cookie">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="<?=base_url()?>assets/css/styles.css">
+        <link rel="stylesheet" href="<?=base_url()?>assets/css/theme_1581438391731.css">
+        <?php 
+            if(!empty($loadcss)){
+                echo loadCss($loadcss);
+            }
+        ?>
+        <script src="<?=base_url()?>assets/js/jquery.min.js"></script>
+        <script src="<?=base_url()?>assets/js/vue.min.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1>Welcome <?= $this->session->username ?></h1>
+                        <p><a href="<?=base_url('signin/signout')?>">Logout</a></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <ul class="navvv">
+                            <li><a href="<?= base_url('admin/dashboard') ?>">Dashboard</a></li>
+                            <li><a href="<?= base_url('admin/agents') ?>">Agents</a></li>
+                            <li><a href="<?= base_url('admin/users') ?>">Users</a></li>
+                            <li><a href="<?= base_url('admin/settings') ?>">Settings</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <?php 
+                    if(!empty($loadjs)){
+                       echo loadJS($loadjs);
+                    } 
+                ?>
+                <h4><?= $title ?></h4>
+                <?php if(!empty($this->session->flashdata('errors'))){
+                    echo "<div class=\"alert alert-danger alert-dismissable\">
+                        <i class=\"fa fa-ban\"></i>
+                        <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>".
+                        $this->session->flashdata('errors') ."
+                    </div>";
+                }
+                ?>
+                <?php if(!empty($this->session->flashdata('success'))){
+                    echo "<div class=\"alert alert-success alert-dismissable\">
+                        <i class=\"fa fa-ban\"></i>
+                        <button aria-hidden=\"true\" data-dismiss=\"alert\" class=\"close\" type=\"button\">×</button>".
+                        $this->session->flashdata('success') ."
+                    </div>";
+                }
+                ?>
+                <?php $this->load->view($subview); ?>
+            </div>
+        </div>
+        <?php $this->load->view('components/footer'); ?>
+        <script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<?=base_url()?>assets/js/script.js"></script>
+    </body>
+
+</html>

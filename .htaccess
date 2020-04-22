@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+
+    Options +FollowSymLinks
+    RewriteEngine on
+
+    RewriteRule ^([a-z0-9_-]+)\.html$ index.php/page/$1 [L]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond $1 !^(index\.php|asset|robots\.txt)
+	RewriteRule ^(.*)$ ./index.php?/$1 [L,QSA]
+    
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "deny"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "origin-when-cross-origin"
+    Header set Expect-CT "max-age=7776000, enforce"
+    Header set Strict-Transport-Security "max-age=31536000; includeSubDomains;"
+    Header set Cross-Origin-Resource-Policy "same-origin"
+</IfModule>
