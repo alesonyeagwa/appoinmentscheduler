@@ -303,7 +303,7 @@
                                     </span>
                                 </div>
                                 <div class="col-sm-12 col-md-9" v-if="appointmentStep == 0 && !showLoader">
-                                    <select name="cat" class="form-control" id="" v-on:change="catChange($event)" v-model="selectedCat">
+                                    <select name="cat" class="form-control" id="catList" v-on:change="catChange($event)" v-model="selectedCat">
                                         <?php foreach($servcats as $val): ?>
                                             <option value="<?=$val->serviceCategoryID ?>"><?=$val->categoryName ?></option>
                                         <?php endforeach; ?>
@@ -658,6 +658,9 @@
             },
             nextStep: function(){
                 this.showLoader = true;
+                if(!this.selectedCatValue){
+                    this.selectedCatValue = $('#catList').val();
+                }
                 if(this.appointmentStep == 0){
                     let loaded = this.loadServices();
                     if(loaded){
